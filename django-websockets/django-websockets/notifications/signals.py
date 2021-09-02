@@ -10,7 +10,7 @@ from .models import Message
 def create_message(sender, instance, created, **kwargs):
     if created:
         # Send the message over the WebSocket
-        if instance.user.wsclient:
+        if hasattr(instance.user, 'wsclient'):
             # Get the associated WebSocket channel name
             channel_name = instance.user.wsclient.channel_name
 
@@ -22,3 +22,7 @@ def create_message(sender, instance, created, **kwargs):
                 "type": "notification.message",
                 "text": instance.text,
             })
+
+            # Update the delivered flag
+            instance.delivered = True
+            instance.save()

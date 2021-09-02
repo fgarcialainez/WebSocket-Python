@@ -30,9 +30,20 @@ class NotificationsConsumer(WebsocketConsumer):
         WebsocketClient.objects.filter(channel_name=self.channel_name).delete()
 
     def receive(self, text_data=None, bytes_data=None):
-        print("WebSocket Received Data: " + text_data)
+        # Get the user object
+        user = self.scope['user']
+
+        # Log the received message
+        print(f"WebSocket Received Data: '{text_data}' from '{user}'")
 
     def notification_message(self, event):
         # Handles the "notification.message" event when it's sent to us.
-        print("WebSocket Notification Message: " + event['text'])
+
+        # Get the user object
+        user = self.scope['user']
+
+        # Log the message to send
+        print(f"WebSocket Notification Message: '{event['text']}' to '{user}'")
+
+        # Send the message over the WebSocket
         self.send(text_data=event['text'])

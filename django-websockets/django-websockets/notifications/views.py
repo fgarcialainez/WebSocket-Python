@@ -1,3 +1,15 @@
-from django.shortcuts import render
+"""
+Views available in the app.
+"""
 
-# Create your views here.
+from rest_framework import generics
+from rest_framework import permissions
+
+from .serializers import  MessageSerializer
+from .models import Message
+
+
+class MessageCreateView(generics.CreateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    permission_classes = [permissions.IsAdminUser]

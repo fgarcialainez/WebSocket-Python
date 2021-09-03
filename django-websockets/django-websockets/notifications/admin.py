@@ -1,3 +1,7 @@
+"""
+Model admins available in the app.
+"""
+
 from django.contrib import admin
 from .models import WebsocketClient, Message
 

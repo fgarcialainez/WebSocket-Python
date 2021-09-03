@@ -1,3 +1,7 @@
+"""
+Consumers in the WebSocket implementation using Django Channels.
+"""
+
 from channels.generic.websocket import WebsocketConsumer
 from django.contrib.auth.models import AnonymousUser
 
